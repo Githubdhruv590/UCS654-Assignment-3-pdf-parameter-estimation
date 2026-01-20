@@ -29,66 +29,64 @@ After preprocessing:
 ---
 
 ## 🔁 Roll Number Based Transformation
-Let the roll number be:
 
-**Roll Number:** `102303785`
+**Roll Number:** 102303785
 
-The transformation is defined as:
+The transformation applied to the input feature x is:
 
-\[
-z = x + a_r \sin(b_r x)
-\]
+z = x + a_r · sin(b_r · x)
 
 Where:
-\[
-a_r = 0.05 \times (r \bmod 7)
-\]
-\[
-b_r = 0.3 \times (r \bmod 5 + 1)
-\]
+
+a_r = 0.05 × (r mod 7)  
+b_r = 0.3 × (r mod 5 + 1)
+
 
 ### Computed Values
+
 | Parameter | Value |
-|---------|-------|
-| \( a_r \) | 0.15 |
-| \( b_r \) | 0.30 |
+|----------|-------|
+| a_r      | 0.15  |
+| b_r      | 0.30  |
+
 
 ---
 
 ## 📐 Probability Density Function
+
 The PDF to be learned is given by:
 
-\[
-\hat{p}(z) = c \, e^{-\lambda (z - \mu)^2}
-\]
+p̂(z) = c · exp(−λ (z − μ)²)
 
-This corresponds to a **Gaussian-type distribution**, where the parameters are estimated using **exact closed-form MLE**.
+This corresponds to a **Gaussian-type distribution**, where:
+- μ is the mean
+- λ controls the spread of the distribution
+- c is the normalization constant
+
 
 ---
 
 ## 🧮 Parameter Estimation (MLE)
-Using Maximum Likelihood Estimation, the parameters are computed as:
 
-\[
-\mu = \frac{1}{N} \sum_{i=1}^{N} z_i
-\]
+Using **Maximum Likelihood Estimation (MLE)**, the parameters are computed as follows:
 
-\[
-\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (z_i - \mu)^2
-\]
+Mean:
+μ = (1 / N) · Σ zᵢ
 
-\[
-\lambda = \frac{1}{2\sigma^2}
-\]
+Variance:
+σ² = (1 / N) · Σ (zᵢ − μ)²
 
-\[
-c = \sqrt{\frac{\lambda}{\pi}}
-\]
+Lambda:
+λ = 1 / (2σ²)
+
+Normalization constant:
+c = √(λ / π)
 
 This approach ensures:
 - Exact analytical solution
 - Properly normalized PDF
-- No numerical optimization errors
+- Deterministic and reproducible results
+
 
 ---
 
@@ -96,10 +94,10 @@ This approach ensures:
 The learned parameters are printed during execution and also saved to a CSV file.
 
 | Parameter | Description |
-|---------|-------------|
-| \( \mu \) | Mean of transformed variable |
-| \( \lambda \) | Shape parameter |
-| \( c \) | Normalization constant |
+|----------|-------------|
+| μ        | Mean of transformed variable |
+| λ        | Shape parameter |
+| c        | Normalization constant |
 
 ---
 
